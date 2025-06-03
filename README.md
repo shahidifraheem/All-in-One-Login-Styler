@@ -1,6 +1,6 @@
-=== All in One Login Styler ===
-Contributors: yourusername
-Tags: login, login customization, custom login page, admin branding, white label
+# All in One Login Styler
+Contributors: shahidifraheem
+Tags: login, login customization, custom login page, admin branding, login page styler, white label
 Requires at least: 6.4
 Tested up to: 6.8.1
 Requires PHP: 7.4
@@ -10,7 +10,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Easily customize the WordPress login page with your own logo, background image, and custom colors — no coding required.
 
-== Description ==
+## Description
 
 **All in One Login Styler** is a powerful and easy-to-use plugin that allows you to personalize the WordPress login screen without writing a single line of code. Add your own logo, set a background image, and tweak colors to match your site's branding for a more professional appearance.
 
@@ -29,19 +29,19 @@ Whether you're designing a client dashboard, a custom WordPress solution, or sim
 - Bloggers and business owners who want a unique login experience
 - Developers building white-labeled WordPress solutions
 
-== Installation ==
+## Installation
 
 1. Upload the plugin folder to the `/wp-content/plugins/` directory or install directly through the WordPress admin dashboard.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Navigate to **Settings → All in One Login Styler** to configure your custom login options.
 
-== Screenshots ==
+## Screenshots
 
 1. Custom logo and background on the login page
 2. Admin settings panel for logo and background upload
 3. Color pickers and form customization controls
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions
 
 = Will this plugin work with my theme? =  
 Yes, All in One Login Styler is designed to work with all modern WordPress themes.
@@ -52,12 +52,12 @@ No, it only customizes the WordPress login page (`wp-login.php`).
 = Is it safe to use? =  
 Yes, the plugin uses WordPress standards and sanitization functions to ensure secure customization.
 
-== Changelog ==
+## Changelog
 
 = 1.0.0 =
 * Initial release
 
-== Upgrade Notice ==
+## Upgrade Notice
 
-= 1.0.0 =
+## 1.0.0
 Initial version of the All in One Login Styler plugin.

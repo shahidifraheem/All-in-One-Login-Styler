@@ -1,6 +1,6 @@
 === All in One Login Styler ===
-Contributors: yourusername
-Tags: login, login customization, custom login page, admin branding, white label
+Contributors: shahidifraheem
+Tags: login, login customization, custom login page, admin branding, login page styler, white label
 Requires at least: 6.4
 Tested up to: 6.8.1
 Requires PHP: 7.4
