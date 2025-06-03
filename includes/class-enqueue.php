@@ -1,34 +1,61 @@
 <?php
+// Prevent direct access to the file for security reasons.
 if (!defined('ABSPATH')) {
     exit;
 }
 
 /**
- * All_in_One_Login_Styler_Enqueue Class to enqueue
+ * Class All_in_One_Login_Styler_Enqueue
+ *
+ * Handles the enqueueing of admin styles and scripts for the "Customize Login" plugin.
+ * This includes loading CSS, JavaScript, and enabling the WordPress media uploader
+ * on the plugin's settings page in the WordPress admin dashboard.
  */
 class All_in_One_Login_Styler_Enqueue
 {
+    /**
+     * Constructor hooks the enqueue methods to appropriate WordPress actions.
+     * - Enqueues plugin assets on admin pages.
+     * - Loads the media uploader scripts globally on admin pages.
+     */
     public function __construct()
     {
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
+
+        // Enqueue WordPress media uploader scripts on all admin pages
         add_action('admin_enqueue_scripts', function () {
-            wp_enqueue_media(); // Enables the media uploader
+            wp_enqueue_media();
         });
     }
 
+    /**
+     * Enqueues CSS and JavaScript files only on the plugin's settings admin page.
+     *
+     * @param string $hook The current admin page hook suffix.
+     */
     public function enqueue_admin_assets($hook)
     {
-        // Only load scripts on the plugin's settings page
+        // Only enqueue assets on the plugin's top-level admin menu page
         if ($hook === 'toplevel_page_all-in-one-login-styler') {
+
+            // Enqueue admin styles with versioning based on file modification time for cache busting
             wp_enqueue_style(
                 'all-in-one-login-styler-admin-styles',
-                plugin_dir_url(__FILE__) . '../assets/css/admin-styles.css'
+                plugin_dir_url(__FILE__) . '../assets/css/admin-styles.css',
+                array(),
+                filemtime(plugin_dir_path(__FILE__) . '../assets/css/admin-styles.css')
             );
 
-            // Enqueue the script
-            wp_enqueue_script('cl-admin-script', plugin_dir_url(__FILE__) . '../assets/js/admin-scripts.js', array('jquery'), null, true);
+            // Enqueue admin scripts, dependent on jQuery, loaded in the footer with versioning
+            wp_enqueue_script(
+                'cl-admin-script',
+                plugin_dir_url(__FILE__) . '../assets/js/admin-scripts.js',
+                array('jquery'),
+                filemtime(plugin_dir_path(__FILE__) . '../assets/js/admin-scripts.js'),
+                true
+            );
 
-            // Localize the script with nonce
+            // Localize script with AJAX URL and nonces for secure AJAX requests
             wp_localize_script('cl-admin-script', 'cl_admin_vars', array(
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'remove_bg_img_nonce' => wp_create_nonce('cl_remove_bg_img_nonce'),
