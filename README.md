@@ -43,21 +43,21 @@ Whether you're designing a client dashboard, a custom WordPress solution, or sim
 
 ## Frequently Asked Questions
 
-*** Will this plugin work with my theme? ***  
+**Will this plugin work with my theme?**
 Yes, All in One Login Styler is designed to work with all modern WordPress themes.
 
-*** Does this plugin change my site’s frontend? ***  
+**Does this plugin change my site’s frontend?**  
 No, it only customizes the WordPress login page (`wp-login.php`).
 
-*** Is it safe to use? ***  
+**Is it safe to use?**  
 Yes, the plugin uses WordPress standards and sanitization functions to ensure secure customization.
 
 ## Changelog
 
-*** 1.0.0 ***
+**1.0.0**
 * Initial release
 
 ## Upgrade Notice
 
-*** 1.0.0 ***
+**1.0.0**
 Initial version of the All in One Login Styler plugin.
