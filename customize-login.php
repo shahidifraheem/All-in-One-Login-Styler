@@ -1,13 +1,15 @@
 <?php
 /*
-* Plugin Name: Customize Login
-* Description: A plugin to customize the WordPress login page with a own logo and styles.
-* Version: 1.0
-* Requires at least: 5.2
-* Requires PHP:      7.2
-* Author: Shahid Ifraheem
-* Author URI: https://shahidifraheem.com/
-* Text Domain: customize-login
+* Plugin Name:        Customize Login
+* Description:        A plugin to customize the WordPress login page with a own logo and styles.
+* Version:            1.0
+* Requires at least:  6.0
+* Requires PHP:       7.4
+* Author:             Shahid Ifraheem
+* Author URI:         https://shahidifraheem.com/
+* License:            GPL v2 or later
+* License URI:        https://www.gnu.org/licenses/gpl-2.0.html
+* Text Domain:        customize-login-page
 */
 
 // Prevent direct access to the file

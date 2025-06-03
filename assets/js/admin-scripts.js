@@ -1,4 +1,6 @@
 jQuery(document).ready(function ($) {
+    let logoMediaUploader;
+    let bgMediaUploader;
 
     $(".cl_checkbox").change(function () {
         if ($(this).is(":checked")) {
@@ -9,7 +11,6 @@ jQuery(document).ready(function ($) {
     });
 
     // Start Logo Scripts
-    let logoMediaUploader;
     // Trigger file input when "Upload/Change Logo" button is clicked
     $('#cl_upload_logo_button').on('click', function () {
         $('#cl_login_logo').click();
@@ -74,7 +75,6 @@ jQuery(document).ready(function ($) {
         $('#cl_login_bg_img').click();
     });
 
-    let bgMediaUploader;
     // Handle file input change
     $('#cl_login_bg_img').on('click', function (e) {
         e.preventDefault();

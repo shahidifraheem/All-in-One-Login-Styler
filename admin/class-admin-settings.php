@@ -17,7 +17,7 @@ class Customize_Login_Admin_Settings
             'Customize Login', // Page title
             'Customize Login', // Menu title
             'manage_options',   // Capability
-            'customize-login', // Menu slug
+            'customize-login-page', // Menu slug
             array($this, 'render_admin_page'), // Callback function
             'dashicons-lock',  // Icon URL
             80                  // Position
@@ -33,7 +33,7 @@ class Customize_Login_Admin_Settings
             <form method="post" action="options.php" enctype="multipart/form-data">
                 <?php
                 settings_fields('cl_options_group');
-                do_settings_sections('customize-login');
+                do_settings_sections('customize-login-page');
                 submit_button();
                 ?>
             </form>
@@ -54,18 +54,18 @@ class Customize_Login_Admin_Settings
         register_setting('cl_options_group', 'cl_links_color', 'sanitize_hex_color');
         register_setting('cl_options_group', 'cl_form_width', 'sanitize_text_field');
 
-        add_settings_section('cl_main_section', 'Customization', null, 'customize-login');
+        add_settings_section('cl_main_section', 'Customization', null, 'customize-login-page');
 
-        add_settings_field('cl_enable_customization', 'Enable Customization', array($this, 'enable_customization_callback'), 'customize-login', 'cl_main_section');
-        add_settings_field('cl_login_logo', 'Login Logo', array($this, 'login_logo_callback'), 'customize-login', 'cl_main_section');
-        add_settings_field('cl_login_bg_img', 'Login Background Image', array($this, 'login_bg_img_callback'), 'customize-login', 'cl_main_section');
-        add_settings_field('cl_background_color', 'Background Color', array($this, 'background_color_callback'), 'customize-login', 'cl_main_section');
-        add_settings_field('cl_form_width', 'Form Width', array($this, 'form_width_callback'), 'customize-login', 'cl_main_section');
-        add_settings_field('cl_button_color', 'Button Color', array($this, 'button_color_callback'), 'customize-login', 'cl_main_section');
-        add_settings_field('cl_form_color', 'Form Background Color', array($this, 'form_color_callback'), 'customize-login', 'cl_main_section');
-        add_settings_field('cl_fields_border_color', 'Fields Border Color', array($this, 'fields_border_color_callback'), 'customize-login', 'cl_main_section');
-        add_settings_field('cl_form_radius', 'Form Radius', array($this, 'form_radius_callback'), 'customize-login', 'cl_main_section');
-        add_settings_field('cl_links_color', 'Bottom Link Color', array($this, 'links_color_callback'), 'customize-login', 'cl_main_section');
+        add_settings_field('cl_enable_customization', 'Enable Customization', array($this, 'enable_customization_callback'), 'customize-login-page', 'cl_main_section');
+        add_settings_field('cl_login_logo', 'Login Logo', array($this, 'login_logo_callback'), 'customize-login-page', 'cl_main_section');
+        add_settings_field('cl_login_bg_img', 'Login Background Image', array($this, 'login_bg_img_callback'), 'customize-login-page', 'cl_main_section');
+        add_settings_field('cl_background_color', 'Background Color', array($this, 'background_color_callback'), 'customize-login-page', 'cl_main_section');
+        add_settings_field('cl_form_width', 'Form Width', array($this, 'form_width_callback'), 'customize-login-page', 'cl_main_section');
+        add_settings_field('cl_button_color', 'Button Color', array($this, 'button_color_callback'), 'customize-login-page', 'cl_main_section');
+        add_settings_field('cl_form_color', 'Form Background Color', array($this, 'form_color_callback'), 'customize-login-page', 'cl_main_section');
+        add_settings_field('cl_fields_border_color', 'Fields Border Color', array($this, 'fields_border_color_callback'), 'customize-login-page', 'cl_main_section');
+        add_settings_field('cl_form_radius', 'Form Radius', array($this, 'form_radius_callback'), 'customize-login-page', 'cl_main_section');
+        add_settings_field('cl_links_color', 'Bottom Link Color', array($this, 'links_color_callback'), 'customize-login-page', 'cl_main_section');
     }
 
     public function enable_customization_callback()
@@ -174,7 +174,7 @@ class Customize_Login_Admin_Settings
 
     public function form_width_callback()
     {
-        $color = get_option('cl_form_width', 0);
+        $color = get_option('cl_form_width', 320);
         echo '<input type="text" name="cl_form_width" value="' . esc_attr($color) . '">';
     }
 

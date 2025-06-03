@@ -3,6 +3,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Customize_Login_Enqueue Class to enqueue
+ */
 class Customize_Login_Enqueue
 {
     public function __construct()
@@ -16,9 +19,9 @@ class Customize_Login_Enqueue
     public function enqueue_admin_assets($hook)
     {
         // Only load scripts on the plugin's settings page
-        if ($hook === 'toplevel_page_customize-login') {
+        if ($hook === 'toplevel_page_customize-login-page') {
             wp_enqueue_style(
-                'customize-login-admin-styles',
+                'customize-login-page-admin-styles',
                 plugin_dir_url(__FILE__) . '../assets/css/admin-styles.css'
             );
 
