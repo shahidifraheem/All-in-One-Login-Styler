@@ -54,7 +54,7 @@ class All_in_One_Login_Styler_Image_Upload
             $file = array(
                 'name'     => isset($_FILES['cl_login_logo']['name']) ? sanitize_file_name($_FILES['cl_login_logo']['name']) : '',
                 'type'     => isset($_FILES['cl_login_logo']['type']) ? sanitize_mime_type($_FILES['cl_login_logo']['type']) : '',
-                'tmp_name' => isset($_FILES['cl_login_logo']['tmp_name']) ? $_FILES['cl_login_logo']['tmp_name'] : '',
+                'tmp_name' => isset($_FILES['cl_login_logo']['tmp_name']) ? sanitize_file_name($_FILES['cl_login_logo']['tmp_name']) : '',
                 'error'    => isset($_FILES['cl_login_logo']['error']) ? intval($_FILES['cl_login_logo']['error']) : 0,
                 'size'     => isset($_FILES['cl_login_logo']['size']) ? intval($_FILES['cl_login_logo']['size']) : 0,
             );
@@ -126,7 +126,7 @@ class All_in_One_Login_Styler_Image_Upload
             $file = array(
                 'name'     => isset($_FILES['cl_login_bg_img']['name']) ? sanitize_file_name($_FILES['cl_login_bg_img']['name']) : '',
                 'type'     => isset($_FILES['cl_login_bg_img']['type']) ? sanitize_mime_type($_FILES['cl_login_bg_img']['type']) : '',
-                'tmp_name' => isset($_FILES['cl_login_bg_img']['tmp_name']) ? $_FILES['cl_login_bg_img']['tmp_name'] : '',
+                'tmp_name' => isset($_FILES['cl_login_bg_img']['tmp_name']) ? sanitize_file_name($_FILES['cl_login_bg_img']['tmp_name']) : '',
                 'error'    => isset($_FILES['cl_login_bg_img']['error']) ? intval($_FILES['cl_login_bg_img']['error']) : 0,
                 'size'     => isset($_FILES['cl_login_bg_img']['size']) ? intval($_FILES['cl_login_bg_img']['size']) : 0,
             );
