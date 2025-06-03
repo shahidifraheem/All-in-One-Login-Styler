@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class Customize_Login_Image_Upload
+class All_in_One_Login_Styler_Image_Upload
 {
     public function __construct()
     {

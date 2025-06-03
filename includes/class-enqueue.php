@@ -4,9 +4,9 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Customize_Login_Enqueue Class to enqueue
+ * All_in_One_Login_Styler_Enqueue Class to enqueue
  */
-class Customize_Login_Enqueue
+class All_in_One_Login_Styler_Enqueue
 {
     public function __construct()
     {
@@ -19,9 +19,9 @@ class Customize_Login_Enqueue
     public function enqueue_admin_assets($hook)
     {
         // Only load scripts on the plugin's settings page
-        if ($hook === 'toplevel_page_customize-login-page') {
+        if ($hook === 'toplevel_page_all-in-one-login-styler') {
             wp_enqueue_style(
-                'customize-login-page-admin-styles',
+                'all-in-one-login-styler-admin-styles',
                 plugin_dir_url(__FILE__) . '../assets/css/admin-styles.css'
             );
 

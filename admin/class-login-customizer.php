@@ -3,14 +3,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class Customize_Login_Customizer
+class All_in_One_Login_Styler
 {
     public function __construct()
     {
-        add_action('login_enqueue_scripts', array($this, 'customize_login_page'));
+        add_action('login_enqueue_scripts', array($this, 'all_in_one_login_styler'));
     }
 
-    public function customize_login_page()
+    public function all_in_one_login_styler()
     {
         // Check if customization is enabled
         $enable_customization = get_option('cl_enable_customization', false);
@@ -42,6 +42,7 @@ class Customize_Login_Customizer
 
             .login form {
                 background-color: <?php echo esc_attr($form_color); ?> !important;
+                border-radius: <?php echo esc_attr($form_radius); ?>px !important;
             }
 
             a:focus {
@@ -66,6 +67,18 @@ class Customize_Login_Customizer
             }
 
             .wp-core-ui .button:not(#wp-submit) {
+                color: <?php echo esc_attr($button_color); ?> !important;
+            }
+
+            .login .message,
+            .login .notice,
+            .login .success {
+                border-color: <?php echo esc_attr($button_color); ?> !important;
+            }
+
+            .login .message a,
+            .login .notice a,
+            .login .success a {
                 color: <?php echo esc_attr($button_color); ?> !important;
             }
 
