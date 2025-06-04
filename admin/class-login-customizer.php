@@ -42,8 +42,8 @@ class All_in_One_Login_Styler
         }
 
         // Get all customization options, providing sensible defaults
-        $logo = get_option('cl_login_logo', '');
-        $bg_img = get_option('cl_login_bg_img', '');
+        $logo_id = get_option('cl_login_logo', '');
+        $bg_img_id = get_option('cl_login_bg_img', '');
         $background_color = get_option('cl_background_color', '#ffffff');
         $button_color = get_option('cl_button_color', '#2271b1');
         $form_color = get_option('cl_form_color', '#ffffff');
@@ -61,7 +61,7 @@ class All_in_One_Login_Styler
             /* Customize body background color and optionally background image */
             body.login {
                 background-color: <?php echo esc_attr($background_color); ?> !important;
-                <?php if ($bg_img) : ?>background: url(<?php echo esc_url($bg_img); ?>) center no-repeat !important;
+                <?php if ($bg_img_id) : ?>background: url(<?php echo esc_url(wp_get_attachment_url($bg_img_id)); ?>) center no-repeat !important;
                 background-size: cover !important;
                 <?php endif; ?>
             }
@@ -78,8 +78,8 @@ class All_in_One_Login_Styler
             }
 
             /* Customize the login logo background image and sizing if a logo is set */
-            <?php if ($logo) : ?>.login h1 a {
-                background-image: url(<?php echo esc_url($logo); ?>) !important;
+            <?php if ($logo_id) : ?>.login h1 a {
+                background-image: url(<?php echo esc_url(wp_get_attachment_url($logo_id)); ?>) !important;
                 background-size: contain !important;
                 width: 100% !important;
                 height: 100px !important;

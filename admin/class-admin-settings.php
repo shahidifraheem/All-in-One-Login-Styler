@@ -69,8 +69,8 @@ class All_in_One_Login_Styler_Admin_Settings
     {
         // Register each setting with proper sanitization callbacks
         register_setting('cl_options_group', 'cl_enable_customization', 'intval');
-        register_setting('cl_options_group', 'cl_login_logo', 'cl_sanitize_logo_url');
-        register_setting('cl_options_group', 'cl_login_bg_img', 'cl_sanitize_bg_img_url');
+        register_setting('cl_options_group', 'cl_login_logo', 'intval');
+        register_setting('cl_options_group', 'cl_login_bg_img', 'intval');
         register_setting('cl_options_group', 'cl_background_color', 'sanitize_hex_color');
         register_setting('cl_options_group', 'cl_button_color', 'sanitize_hex_color');
         register_setting('cl_options_group', 'cl_form_color', 'sanitize_hex_color');
@@ -113,27 +113,27 @@ class All_in_One_Login_Styler_Admin_Settings
      */
     public function login_logo_callback()
     {
-        $logo = get_option('cl_login_logo', '');
+        $logo_id = get_option('cl_login_logo', '');
     ?>
         <div class="cl-logo-upload-container">
             <!-- Hidden input to store logo URL -->
-            <input type="hidden" name="cl_login_logo" id="cl_login_logo" style="display: none;">
+            <input type="hidden" name="cl_login_logo" id="cl_login_logo" style="display: none;" value="<?php echo ($logo_id) ? esc_attr($logo_id) : '' ?>">
 
             <!-- Button to trigger upload/change -->
             <button type="button" id="cl_upload_logo_button" class="button">
-                <?php echo $logo ? 'Change Logo' : 'Upload Logo'; ?>
+                <?php echo $logo_id ? 'Change Logo' : 'Upload Logo'; ?>
             </button>
 
             <!-- Remove logo button only shown if logo exists -->
-            <?php if ($logo) : ?>
+            <?php if ($logo_id) : ?>
                 <button type="button" id="cl_remove_logo_button" class="button button-danger">Remove Logo</button>
             <?php endif; ?>
 
             <!-- Logo preview -->
             <div id="cl_logo_preview">
-                <?php if ($logo) : ?>
-                    <p><img src="<?php echo esc_url($logo); ?>" style="max-width: 300px; margin-top: 10px;"></p>
-                <?php else : ?>
+                <?php if ($logo_id) :
+                    echo wp_get_attachment_image((int) $logo_id, 'medium', false, ['style' => 'max-width:300px;margin-top:10px;']);
+                else : ?>
                     <p>No logo uploaded.</p>
                 <?php endif; ?>
             </div>
@@ -147,27 +147,27 @@ class All_in_One_Login_Styler_Admin_Settings
      */
     public function login_bg_img_callback()
     {
-        $bg_img = get_option('cl_login_bg_img', '');
+        $bg_img_id = get_option('cl_login_bg_img', '');
     ?>
         <div class="cl-logo-upload-container">
             <!-- Hidden input to store background image URL -->
-            <input type="hidden" name="cl_login_bg_img" id="cl_login_bg_img" style="display: none;">
+            <input type="hidden" name="cl_login_bg_img" id="cl_login_bg_img" style="display: none;" value="<?php echo ($bg_img_id) ? esc_attr($bg_img_id) : '' ?>">
 
             <!-- Button to trigger upload/change -->
             <button type="button" id="cl_upload_bg_img_button" class="button">
-                <?php echo $bg_img ? 'Change Background Image' : 'Upload Background Image'; ?>
+                <?php echo $bg_img_id ? 'Change Background Image' : 'Upload Background Image'; ?>
             </button>
 
             <!-- Remove background image button only shown if image exists -->
-            <?php if ($bg_img) : ?>
+            <?php if ($bg_img_id) : ?>
                 <button type="button" id="cl_remove_bg_img_button" class="button button-danger">Remove Background Image</button>
             <?php endif; ?>
 
             <!-- Background image preview -->
             <div id="cl_bg_img_preview">
-                <?php if ($bg_img) : ?>
-                    <p><img src="<?php echo esc_url($bg_img); ?>" style="max-width: 300px; margin-top: 10px;"></p>
-                <?php else : ?>
+                <?php if ($bg_img_id) :
+                    echo wp_get_attachment_image((int) $bg_img_id, 'medium', false, ['style' => 'max-width:300px;margin-top:10px;']);
+                else : ?>
                     <p>No Background Image uploaded.</p>
                 <?php endif; ?>
             </div>

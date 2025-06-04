@@ -41,8 +41,8 @@ jQuery(document).ready(function ($) {
             // Update preview
             $('#cl_logo_preview').html('<p><img src="' + attachment.url + '" style="max-width:300px;margin-top:10px;"></p>');
 
-            // Store image URL in a hidden input (optional)
-            $('#cl_login_logo').val(attachment.url);
+            // Store image ID in a hidden input (optional)
+            $('#cl_login_logo').val(attachment.id);
         });
 
         logoMediaUploader.open();
@@ -101,8 +101,8 @@ jQuery(document).ready(function ($) {
             // Update preview
             $('#cl_bg_img_preview').html('<p><img src="' + attachment.url + '" style="max-width:300px;margin-top:10px;"></p>');
 
-            // Store image URL in a hidden input (optional)
-            $('#cl_login_bg_img').val(attachment.url);
+            // Store image ID in a hidden input (optional)
+            $('#cl_login_bg_img').val(attachment.id);
         });
 
         bgMediaUploader.open();
