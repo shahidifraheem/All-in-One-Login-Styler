@@ -20,21 +20,21 @@ class All_in_One_Login_Styler_Admin_Settings
      */
     public function __construct()
     {
-        add_action('admin_menu', array($this, 'add_admin_page'));
-        add_action('admin_init', array($this, 'register_settings'));
+        add_action('admin_menu', array($this, 'aiols_add_admin_page'));
+        add_action('admin_init', array($this, 'aiols_register_settings'));
     }
 
     /**
      * Adds a top-level admin menu page for login customization.
      */
-    public function add_admin_page()
+    public function aiols_add_admin_page()
     {
         add_menu_page(
             'Customize Login',                // Page title
             'Customize Login',                // Menu title
             'manage_options',                // Capability required to access
             'all-in-one-login-styler',       // Menu slug
-            array($this, 'render_admin_page'), // Callback to render page content
+            array($this, 'aiols_render_admin_page'), // Callback to render page content
             'dashicons-lock',                // Dashicon icon for the menu
             80                              // Position in menu order
         );
@@ -44,7 +44,7 @@ class All_in_One_Login_Styler_Admin_Settings
      * Outputs the HTML for the admin settings page.
      * Displays setting errors and renders the settings form.
      */
-    public function render_admin_page()
+    public function aiols_render_admin_page()
     {
 ?>
         <div class="wrap">
@@ -52,7 +52,7 @@ class All_in_One_Login_Styler_Admin_Settings
             <?php settings_errors(); ?> <!-- Display any settings error messages -->
             <form method="post" action="options.php" enctype="multipart/form-data">
                 <?php
-                settings_fields('cl_options_group');      // Security fields for the registered setting group
+                settings_fields('aiols_options_group');      // Security fields for the registered setting group
                 do_settings_sections('all-in-one-login-styler'); // Output all sections and fields for this page
                 submit_button();                          // Submit button for saving options
                 ?>
@@ -65,45 +65,45 @@ class All_in_One_Login_Styler_Admin_Settings
      * Registers all plugin settings, sections, and fields.
      * Defines sanitization callbacks for each setting to ensure data integrity.
      */
-    public function register_settings()
+    public function aiols_register_settings()
     {
         // Register each setting with proper sanitization callbacks
-        register_setting('cl_options_group', 'cl_enable_customization', 'intval');
-        register_setting('cl_options_group', 'cl_login_logo', 'intval');
-        register_setting('cl_options_group', 'cl_login_bg_img', 'intval');
-        register_setting('cl_options_group', 'cl_background_color', 'sanitize_hex_color');
-        register_setting('cl_options_group', 'cl_button_color', 'sanitize_hex_color');
-        register_setting('cl_options_group', 'cl_form_color', 'sanitize_hex_color');
-        register_setting('cl_options_group', 'cl_fields_border_color', 'sanitize_hex_color');
-        register_setting('cl_options_group', 'cl_form_radius', 'sanitize_text_field');
-        register_setting('cl_options_group', 'cl_links_color', 'sanitize_hex_color');
-        register_setting('cl_options_group', 'cl_form_width', 'sanitize_text_field');
+        register_setting('aiols_options_group', 'aiols_enable_customization', 'intval');
+        register_setting('aiols_options_group', 'aiols_login_logo', 'intval');
+        register_setting('aiols_options_group', 'aiols_login_bg_img', 'intval');
+        register_setting('aiols_options_group', 'aiols_background_color', 'sanitize_hex_color');
+        register_setting('aiols_options_group', 'aiols_button_color', 'sanitize_hex_color');
+        register_setting('aiols_options_group', 'aiols_form_color', 'sanitize_hex_color');
+        register_setting('aiols_options_group', 'aiols_fields_border_color', 'sanitize_hex_color');
+        register_setting('aiols_options_group', 'aiols_form_radius', 'sanitize_text_field');
+        register_setting('aiols_options_group', 'aiols_links_color', 'sanitize_hex_color');
+        register_setting('aiols_options_group', 'aiols_form_width', 'sanitize_text_field');
 
         // Add main section to group settings on the page
-        add_settings_section('cl_main_section', 'Customization', null, 'all-in-one-login-styler');
+        add_settings_section('aiols_main_section', 'Customization', null, 'all-in-one-login-styler');
 
         // Add individual fields to the settings page with callbacks to render inputs
-        add_settings_field('cl_enable_customization', 'Enable Customization', array($this, 'enable_customization_callback'), 'all-in-one-login-styler', 'cl_main_section');
-        add_settings_field('cl_login_logo', 'Login Logo', array($this, 'login_logo_callback'), 'all-in-one-login-styler', 'cl_main_section');
-        add_settings_field('cl_login_bg_img', 'Login Background Image', array($this, 'login_bg_img_callback'), 'all-in-one-login-styler', 'cl_main_section');
-        add_settings_field('cl_background_color', 'Background Color', array($this, 'background_color_callback'), 'all-in-one-login-styler', 'cl_main_section');
-        add_settings_field('cl_form_width', 'Form Width', array($this, 'form_width_callback'), 'all-in-one-login-styler', 'cl_main_section');
-        add_settings_field('cl_button_color', 'Button Color', array($this, 'button_color_callback'), 'all-in-one-login-styler', 'cl_main_section');
-        add_settings_field('cl_form_color', 'Form Background Color', array($this, 'form_color_callback'), 'all-in-one-login-styler', 'cl_main_section');
-        add_settings_field('cl_fields_border_color', 'Fields Border Color', array($this, 'fields_border_color_callback'), 'all-in-one-login-styler', 'cl_main_section');
-        add_settings_field('cl_form_radius', 'Form Radius', array($this, 'form_radius_callback'), 'all-in-one-login-styler', 'cl_main_section');
-        add_settings_field('cl_links_color', 'Bottom Link Color', array($this, 'links_color_callback'), 'all-in-one-login-styler', 'cl_main_section');
+        add_settings_field('aiols_enable_customization', 'Enable Customization', array($this, 'aiols_enable_customization_callback'), 'all-in-one-login-styler', 'aiols_main_section');
+        add_settings_field('aiols_login_logo', 'Login Logo', array($this, 'aiols_login_logo_callback'), 'all-in-one-login-styler', 'aiols_main_section');
+        add_settings_field('aiols_login_bg_img', 'Login Background Image', array($this, 'aiols_login_bg_img_callback'), 'all-in-one-login-styler', 'aiols_main_section');
+        add_settings_field('aiols_background_color', 'Background Color', array($this, 'aiols_background_color_callback'), 'all-in-one-login-styler', 'aiols_main_section');
+        add_settings_field('aiols_form_width', 'Form Width', array($this, 'aiols_form_width_callback'), 'all-in-one-login-styler', 'aiols_main_section');
+        add_settings_field('aiols_button_color', 'Button Color', array($this, 'aiols_button_color_callback'), 'all-in-one-login-styler', 'aiols_main_section');
+        add_settings_field('aiols_form_color', 'Form Background Color', array($this, 'aiols_form_color_callback'), 'all-in-one-login-styler', 'aiols_main_section');
+        add_settings_field('aiols_fields_border_color', 'Fields Border Color', array($this, 'aiols_fields_border_color_callback'), 'all-in-one-login-styler', 'aiols_main_section');
+        add_settings_field('aiols_form_radius', 'Form Radius', array($this, 'aiols_form_radius_callback'), 'all-in-one-login-styler', 'aiols_main_section');
+        add_settings_field('aiols_links_color', 'Bottom Link Color', array($this, 'aiols_links_color_callback'), 'all-in-one-login-styler', 'aiols_main_section');
     }
 
     /**
      * Render callback for "Enable Customization" checkbox field.
      * Pre-selects the checkbox if customization is enabled.
      */
-    public function enable_customization_callback()
+    public function aiols_enable_customization_callback()
     {
-        $enable_customization = get_option('cl_enable_customization', 1);
+        $enable_customization = get_option('aiols_enable_customization', 1);
     ?>
-        <input type="checkbox" name="cl_enable_customization" id="cl_enable_customization" class="cl_checkbox" value="1" <?php checked(1, $enable_customization); ?>>
+        <input type="checkbox" name="aiols_enable_customization" id="aiols_enable_customization" class="aiols_checkbox" value="1" <?php checked(1, $enable_customization); ?>>
     <?php
     }
 
@@ -111,26 +111,26 @@ class All_in_One_Login_Styler_Admin_Settings
      * Render callback for the Login Logo upload section.
      * Displays upload/change buttons, remove button (if logo exists), and preview.
      */
-    public function login_logo_callback()
+    public function aiols_login_logo_callback()
     {
-        $logo_id = get_option('cl_login_logo', '');
+        $logo_id = get_option('aiols_login_logo', '');
     ?>
-        <div class="cl-logo-upload-container">
+        <div class="aiols-logo-upload-container">
             <!-- Hidden input to store logo URL -->
-            <input type="hidden" name="cl_login_logo" id="cl_login_logo" style="display: none;" value="<?php echo ($logo_id) ? esc_attr($logo_id) : '' ?>">
+            <input type="hidden" name="aiols_login_logo" id="aiols_login_logo" style="display: none;" value="<?php echo ($logo_id) ? esc_attr($logo_id) : '' ?>">
 
             <!-- Button to trigger upload/change -->
-            <button type="button" id="cl_upload_logo_button" class="button">
+            <button type="button" id="aiols_upload_logo_button" class="button">
                 <?php echo $logo_id ? 'Change Logo' : 'Upload Logo'; ?>
             </button>
 
             <!-- Remove logo button only shown if logo exists -->
             <?php if ($logo_id) : ?>
-                <button type="button" id="cl_remove_logo_button" class="button button-danger">Remove Logo</button>
+                <button type="button" id="aiols_remove_logo_button" class="button button-danger">Remove Logo</button>
             <?php endif; ?>
 
             <!-- Logo preview -->
-            <div id="cl_logo_preview">
+            <div id="aiols_logo_preview">
                 <?php if ($logo_id) :
                     echo wp_get_attachment_image((int) $logo_id, 'medium', false, ['style' => 'max-width:300px;margin-top:10px;']);
                 else : ?>
@@ -145,26 +145,26 @@ class All_in_One_Login_Styler_Admin_Settings
      * Render callback for the Login Background Image upload section.
      * Displays upload/change buttons, remove button (if image exists), and preview.
      */
-    public function login_bg_img_callback()
+    public function aiols_login_bg_img_callback()
     {
-        $bg_img_id = get_option('cl_login_bg_img', '');
+        $bg_img_id = get_option('aiols_login_bg_img', '');
     ?>
-        <div class="cl-logo-upload-container">
+        <div class="aiols-logo-upload-container">
             <!-- Hidden input to store background image URL -->
-            <input type="hidden" name="cl_login_bg_img" id="cl_login_bg_img" style="display: none;" value="<?php echo ($bg_img_id) ? esc_attr($bg_img_id) : '' ?>">
+            <input type="hidden" name="aiols_login_bg_img" id="aiols_login_bg_img" style="display: none;" value="<?php echo ($bg_img_id) ? esc_attr($bg_img_id) : '' ?>">
 
             <!-- Button to trigger upload/change -->
-            <button type="button" id="cl_upload_bg_img_button" class="button">
+            <button type="button" id="aiols_upload_bg_img_button" class="button">
                 <?php echo $bg_img_id ? 'Change Background Image' : 'Upload Background Image'; ?>
             </button>
 
             <!-- Remove background image button only shown if image exists -->
             <?php if ($bg_img_id) : ?>
-                <button type="button" id="cl_remove_bg_img_button" class="button button-danger">Remove Background Image</button>
+                <button type="button" id="aiols_remove_bg_img_button" class="button button-danger">Remove Background Image</button>
             <?php endif; ?>
 
             <!-- Background image preview -->
-            <div id="cl_bg_img_preview">
+            <div id="aiols_bg_img_preview">
                 <?php if ($bg_img_id) :
                     echo wp_get_attachment_image((int) $bg_img_id, 'medium', false, ['style' => 'max-width:300px;margin-top:10px;']);
                 else : ?>
@@ -178,63 +178,63 @@ class All_in_One_Login_Styler_Admin_Settings
     /**
      * Render callback for Background Color picker.
      */
-    public function background_color_callback()
+    public function aiols_background_color_callback()
     {
-        $color = get_option('cl_background_color', '#ffffff');
-        echo '<input type="color" name="cl_background_color" value="' . esc_attr($color) . '">';
+        $color = get_option('aiols_background_color', '#ffffff');
+        echo '<input type="color" name="aiols_background_color" value="' . esc_attr($color) . '">';
     }
 
     /**
      * Render callback for Button Color picker.
      */
-    public function button_color_callback()
+    public function aiols_button_color_callback()
     {
-        $color = get_option('cl_button_color', '#2271b1');
-        echo '<input type="color" name="cl_button_color" value="' . esc_attr($color) . '">';
+        $color = get_option('aiols_button_color', '#2271b1');
+        echo '<input type="color" name="aiols_button_color" value="' . esc_attr($color) . '">';
     }
 
     /**
      * Render callback for Form Background Color picker.
      */
-    public function form_color_callback()
+    public function aiols_form_color_callback()
     {
-        $color = get_option('cl_form_color', '#ffffff');
-        echo '<input type="color" name="cl_form_color" value="' . esc_attr($color) . '">';
+        $color = get_option('aiols_form_color', '#ffffff');
+        echo '<input type="color" name="aiols_form_color" value="' . esc_attr($color) . '">';
     }
 
     /**
      * Render callback for Fields Border Color picker.
      */
-    public function fields_border_color_callback()
+    public function aiols_fields_border_color_callback()
     {
-        $color = get_option('cl_fields_border_color', '#2271b1');
-        echo '<input type="color" name="cl_fields_border_color" value="' . esc_attr($color) . '">';
+        $color = get_option('aiols_fields_border_color', '#2271b1');
+        echo '<input type="color" name="aiols_fields_border_color" value="' . esc_attr($color) . '">';
     }
 
     /**
      * Render callback for Form Radius input.
      */
-    public function form_radius_callback()
+    public function aiols_form_radius_callback()
     {
-        $radius = get_option('cl_form_radius', 0);
-        echo '<input type="text" name="cl_form_radius" value="' . esc_attr($radius) . '">';
+        $radius = get_option('aiols_form_radius', 0);
+        echo '<input type="text" name="aiols_form_radius" value="' . esc_attr($radius) . '">';
     }
 
     /**
      * Render callback for Form Width input.
      */
-    public function form_width_callback()
+    public function aiols_form_width_callback()
     {
-        $width = get_option('cl_form_width', 320);
-        echo '<input type="text" name="cl_form_width" value="' . esc_attr($width) . '">';
+        $width = get_option('aiols_form_width', 320);
+        echo '<input type="text" name="aiols_form_width" value="' . esc_attr($width) . '">';
     }
 
     /**
      * Render callback for Bottom Link Color picker.
      */
-    public function links_color_callback()
+    public function aiols_links_color_callback()
     {
-        $color = get_option('cl_links_color', '#50575e');
-        echo '<input type="color" name="cl_links_color" value="' . esc_attr($color) . '">';
+        $color = get_option('aiols_links_color', '#50575e');
+        echo '<input type="color" name="aiols_links_color" value="' . esc_attr($color) . '">';
     }
 }

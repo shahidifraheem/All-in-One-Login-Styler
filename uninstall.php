@@ -6,16 +6,16 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 
 // Option keys used in the plugin
 $option_keys = [
-    'cl_enable_customization',
-    'cl_login_logo',
-    'cl_login_bg_img',
-    'cl_background_color',
-    'cl_button_color',
-    'cl_form_color',
-    'cl_fields_border_color',
-    'cl_form_radius',
-    'cl_links_color',
-    'cl_form_width',
+    'aiols_enable_customization',
+    'aiols_login_logo',
+    'aiols_login_bg_img',
+    'aiols_background_color',
+    'aiols_button_color',
+    'aiols_form_color',
+    'aiols_fields_border_color',
+    'aiols_form_radius',
+    'aiols_links_color',
+    'aiols_form_width',
 ];
 
 // Loop through and delete each option

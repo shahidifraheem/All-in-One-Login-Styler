@@ -36,21 +36,21 @@ class All_in_One_Login_Styler
     public function all_in_one_login_styler()
     {
         // Retrieve customization enable flag; exit if disabled
-        $enable_customization = get_option('cl_enable_customization', false);
+        $enable_customization = get_option('aiols_enable_customization', false);
         if (!$enable_customization) {
             return; // Customization not enabled, do nothing
         }
 
         // Get all customization options, providing sensible defaults
-        $logo_id = get_option('cl_login_logo', '');
-        $bg_img_id = get_option('cl_login_bg_img', '');
-        $background_color = get_option('cl_background_color', '#ffffff');
-        $button_color = get_option('cl_button_color', '#2271b1');
-        $form_color = get_option('cl_form_color', '#ffffff');
-        $fields_border_color = get_option('cl_fields_border_color', '#2271b1');
-        $form_radius = get_option('cl_form_radius', 0);
-        $links_color = get_option('cl_links_color', '#50575e');
-        $form_width = get_option('cl_form_width', 320);
+        $logo_id = get_option('aiols_login_logo', '');
+        $bg_img_id = get_option('aiols_login_bg_img', '');
+        $background_color = get_option('aiols_background_color', '#ffffff');
+        $button_color = get_option('aiols_button_color', '#2271b1');
+        $form_color = get_option('aiols_form_color', '#ffffff');
+        $fields_border_color = get_option('aiols_fields_border_color', '#2271b1');
+        $form_radius = get_option('aiols_form_radius', 0);
+        $links_color = get_option('aiols_links_color', '#50575e');
+        $form_width = get_option('aiols_form_width', 320);
 ?>
         <style type="text/css">
             /* Customize login form width */

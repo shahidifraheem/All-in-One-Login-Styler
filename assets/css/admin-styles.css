@@ -1,27 +1,27 @@
 /* Style the logo upload container */
-.cl-logo-upload-container {
+.aiols-logo-upload-container {
     margin-bottom: 20px;
 }
 
 /* Style the buttons */
-.cl-logo-upload-container .button {
+.aiols-logo-upload-container .button {
     margin-right: 10px;
 }
 
 /* Style the "Remove Logo" button */
-.cl-logo-upload-container .button-danger {
+.aiols-logo-upload-container .button-danger {
     background-color: #dc3545;
     border-color: #dc3545;
     color: #fff;
 }
 
-.cl-logo-upload-container .button-danger:hover {
+.aiols-logo-upload-container .button-danger:hover {
     background-color: #c82333;
     border-color: #bd2130;
 }
 
 /* Style the logo preview */
-.cl-logo-upload-container img {
+.aiols-logo-upload-container img {
     max-width: 100%;
     height: auto;
     margin-top: 10px;

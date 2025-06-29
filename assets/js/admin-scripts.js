@@ -2,7 +2,7 @@ jQuery(document).ready(function ($) {
     let logoMediaUploader;
     let bgMediaUploader;
 
-    $(".cl_checkbox").change(function () {
+    $(".aiols_checkbox").change(function () {
         if ($(this).is(":checked")) {
             $(this).val(1);
         } else {
@@ -12,11 +12,11 @@ jQuery(document).ready(function ($) {
 
     // Start Logo Scripts
     // Trigger file input when "Upload/Change Logo" button is clicked
-    $('#cl_upload_logo_button').on('click', function () {
-        $('#cl_login_logo').click();
+    $('#aiols_upload_logo_button').on('click', function () {
+        $('#aiols_login_logo').click();
     });
 
-    $('#cl_login_logo').on('click', function (e) {
+    $('#aiols_login_logo').on('click', function (e) {
         e.preventDefault();
 
         // If the uploader already exists, reopen it
@@ -39,22 +39,22 @@ jQuery(document).ready(function ($) {
             const attachment = logoMediaUploader.state().get('selection').first().toJSON();
 
             // Update preview
-            $('#cl_logo_preview').html('<p><img src="' + attachment.url + '" style="max-width:300px;margin-top:10px;"></p>');
+            $('#aiols_logo_preview').html('<p><img src="' + attachment.url + '" style="max-width:300px;margin-top:10px;"></p>');
 
             // Store image ID in a hidden input (optional)
-            $('#cl_login_logo').val(attachment.id);
+            $('#aiols_login_logo').val(attachment.id);
         });
 
         logoMediaUploader.open();
     });
 
     // Handle "Remove Logo" button click
-    $('#cl_remove_logo_button').on('click', function () {
+    $('#aiols_remove_logo_button').on('click', function () {
         if (confirm('Are you sure you want to remove the logo?')) {
             // Send an AJAX request to remove the logo
             $.post(ajaxurl, {
-                action: 'cl_remove_logo',
-                _ajax_nonce: cl_admin_vars.remove_logo_nonce // Pass the nonce from localized script
+                action: 'aiols_remove_logo',
+                _ajax_nonce: aiols_admin_vars.remove_logo_nonce // Pass the nonce from localized script
             }, function (response) {
                 console.log(response);
                 if (response.success) {
@@ -71,12 +71,12 @@ jQuery(document).ready(function ($) {
 
     // Start Background Image Scripts
     // Trigger file input when "Upload/Change background image" button is clicked
-    $('#cl_upload_bg_img_button').on('click', function () {
-        $('#cl_login_bg_img').click();
+    $('#aiols_upload_bg_img_button').on('click', function () {
+        $('#aiols_login_bg_img').click();
     });
 
     // Handle file input change
-    $('#cl_login_bg_img').on('click', function (e) {
+    $('#aiols_login_bg_img').on('click', function (e) {
         e.preventDefault();
 
         // If the uploader already exists, reopen it
@@ -99,22 +99,22 @@ jQuery(document).ready(function ($) {
             const attachment = bgMediaUploader.state().get('selection').first().toJSON();
 
             // Update preview
-            $('#cl_bg_img_preview').html('<p><img src="' + attachment.url + '" style="max-width:300px;margin-top:10px;"></p>');
+            $('#aiols_bg_img_preview').html('<p><img src="' + attachment.url + '" style="max-width:300px;margin-top:10px;"></p>');
 
             // Store image ID in a hidden input (optional)
-            $('#cl_login_bg_img').val(attachment.id);
+            $('#aiols_login_bg_img').val(attachment.id);
         });
 
         bgMediaUploader.open();
     });
 
     // Handle "Remove background image" button click
-    $('#cl_remove_bg_img_button').on('click', function () {
+    $('#aiols_remove_bg_img_button').on('click', function () {
         if (confirm('Are you sure you want to remove the background image?')) {
             // Send an AJAX request to remove the background image
             $.post(ajaxurl, {
-                action: 'cl_remove_bg_img',
-                _ajax_nonce: cl_admin_vars.remove_bg_img_nonce // Pass the nonce from localized script
+                action: 'aiols_remove_bg_img',
+                _ajax_nonce: aiols_admin_vars.remove_bg_img_nonce // Pass the nonce from localized script
             }, function (response) {
                 if (response.success) {
                     // Reload the page to reflect changes

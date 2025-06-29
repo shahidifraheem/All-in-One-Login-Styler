@@ -20,7 +20,7 @@ class All_in_One_Login_Styler_Enqueue
      */
     public function __construct()
     {
-        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
+        add_action('admin_enqueue_scripts', array($this, 'aiols_enqueue_admin_assets'));
 
         // Enqueue WordPress media uploader scripts on all admin pages
         add_action('admin_enqueue_scripts', function () {
@@ -33,7 +33,7 @@ class All_in_One_Login_Styler_Enqueue
      *
      * @param string $hook The current admin page hook suffix.
      */
-    public function enqueue_admin_assets($hook)
+    public function aiols_enqueue_admin_assets($hook)
     {
         // Only enqueue assets on the plugin's top-level admin menu page
         if ($hook === 'toplevel_page_all-in-one-login-styler') {
@@ -48,7 +48,7 @@ class All_in_One_Login_Styler_Enqueue
 
             // Enqueue admin scripts, dependent on jQuery, loaded in the footer with versioning
             wp_enqueue_script(
-                'cl-admin-script',
+                'aiols-admin-script',
                 plugin_dir_url(__FILE__) . '../assets/js/admin-scripts.js',
                 array('jquery'),
                 filemtime(plugin_dir_path(__FILE__) . '../assets/js/admin-scripts.js'),
@@ -56,10 +56,10 @@ class All_in_One_Login_Styler_Enqueue
             );
 
             // Localize script with AJAX URL and nonces for secure AJAX requests
-            wp_localize_script('cl-admin-script', 'cl_admin_vars', array(
+            wp_localize_script('aiols-admin-script', 'aiols_admin_vars', array(
                 'ajax_url' => admin_url('admin-ajax.php'),
-                'remove_bg_img_nonce' => wp_create_nonce('cl_remove_bg_img_nonce'),
-                'remove_logo_nonce'   => wp_create_nonce('cl_remove_logo_nonce'),
+                'remove_bg_img_nonce' => wp_create_nonce('aiols_remove_bg_img_nonce'),
+                'remove_logo_nonce'   => wp_create_nonce('aiols_remove_logo_nonce'),
             ));
         }
     }
