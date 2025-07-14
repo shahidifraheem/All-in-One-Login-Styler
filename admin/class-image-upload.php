@@ -5,12 +5,12 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Class All_in_One_Login_Styler_Image_Upload
+ * Class AIOLS_Image_Upload
  *
  * Handles uploading and saving custom login page images
  * such as the login logo and background image through the admin interface.
  */
-class All_in_One_Login_Styler_Image_Upload
+class AIOLS_Image_Upload
 {
     /**
      * Constructor: Hook the image upload handler to the 'admin_init' action.

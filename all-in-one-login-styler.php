@@ -26,12 +26,12 @@ require_once plugin_dir_path(__FILE__) . 'includes/class-enqueue.php';
 
 // Instantiate admin-only classes on admin pages to handle settings and image uploads.
 if (is_admin()) {
-    new All_in_One_Login_Styler_Admin_Settings();
-    new All_in_One_Login_Styler_Image_Upload();
+    new AIOLS_Admin_Settings();
+    new AIOLS_Image_Upload();
 }
 
 // Instantiate the enqueuing class to load styles and scripts as needed.
-new All_in_One_Login_Styler_Enqueue();
+new AIOLS_Enqueue();
 
 // Instantiate the main login styler class to apply login page customizations.
 new All_in_One_Login_Styler();

@@ -5,13 +5,13 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Class All_in_One_Login_Styler_Enqueue
+ * Class AIOLS_Enqueue
  *
  * Handles the enqueueing of admin styles and scripts for the "Customize Login" plugin.
  * This includes loading CSS, JavaScript, and enabling the WordPress media uploader
  * on the plugin's settings page in the WordPress admin dashboard.
  */
-class All_in_One_Login_Styler_Enqueue
+class AIOLS_Enqueue
 {
     /**
      * Constructor hooks the enqueue methods to appropriate WordPress actions.

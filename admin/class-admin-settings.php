@@ -5,13 +5,13 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Class All_in_One_Login_Styler_Admin_Settings
+ * Class AIOLS_Admin_Settings
  *
  * Handles the admin settings page for the "All in One Login Styler" plugin.
  * Responsible for adding the admin menu, registering plugin settings,
  * and rendering the settings form fields for customizing the WordPress login page.
  */
-class All_in_One_Login_Styler_Admin_Settings
+class AIOLS_Admin_Settings
 {
     /**
      * Constructor

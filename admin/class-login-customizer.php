@@ -1,126 +1,159 @@
 <?php
-// Prevent direct access to the file for security reasons.
+
+/**
+ * AIOLS Login Customizer
+ * 
+ * Handles customization of the WordPress login page including styles,
+ * scripts, and dynamic CSS generation based on user settings.
+ * 
+ * @package All_in_One_Login_Styler
+ */
+
+// Exit if accessed directly
 if (!defined('ABSPATH')) {
     exit;
 }
 
 /**
- * Class All_in_One_Login_Styler
- *
- * Handles applying custom styles and scripts to the WordPress login page.
- * It uses options saved in the database to customize elements such as logo,
- * background, form colors, button colors, border colors, form width, and more.
+ * Main class for customizing the WordPress login page
  */
 class All_in_One_Login_Styler
 {
     /**
-     * Constructor hooks the styling method into the login page enqueue scripts action.
+     * Class constructor
+     * 
+     * Initializes the login customizer by hooking into WordPress actions
      */
     public function __construct()
     {
-        add_action('login_enqueue_scripts', array($this, 'all_in_one_login_styler'));
+        // Hook into login page to enqueue custom assets
+        add_action('login_enqueue_scripts', array($this, 'enqueue_login_assets'));
     }
 
     /**
-     * Outputs inline CSS and JavaScript to customize the login page based on
-     * plugin settings saved as options in the database.
-     *
-     * Checks if customization is enabled and applies styles accordingly:
-     * - Login form width and background
-     * - Custom logo image
-     * - Background image and color
-     * - Button colors and form styling (radius, borders)
-     * - Link colors and hiding the back to blog link
-     * - Adjust login logo link to homepage URL
+     * Enqueues all necessary login page assets (CSS/JS)
+     * 
+     * Only loads assets if customization is enabled in settings
+     * 
+     * @hook login_enqueue_scripts
+     * @return void
      */
-    public function all_in_one_login_styler()
+    public function enqueue_login_assets()
     {
-        // Retrieve customization enable flag; exit if disabled
-        $enable_customization = get_option('aiols_enable_customization', false);
-        if (!$enable_customization) {
-            return; // Customization not enabled, do nothing
+        // Bail if customization is disabled in settings
+        if (!get_option('aiols_enable_customization', false)) {
+            return;
         }
 
-        // Get all customization options, providing sensible defaults
-        $logo_id = get_option('aiols_login_logo', '');
-        $bg_img_id = get_option('aiols_login_bg_img', '');
-        $background_color = get_option('aiols_background_color', '#ffffff');
-        $button_color = get_option('aiols_button_color', '#2271b1');
-        $form_color = get_option('aiols_form_color', '#ffffff');
-        $fields_border_color = get_option('aiols_fields_border_color', '#2271b1');
-        $form_radius = get_option('aiols_form_radius', 0);
-        $links_color = get_option('aiols_links_color', '#50575e');
-        $form_width = get_option('aiols_form_width', 320);
-?>
-        <style type="text/css">
-            /* Customize login form width */
-            #login {
-                width: <?php echo esc_attr($form_width); ?>px !important;
-            }
+        // Register empty style just to attach our dynamic CSS
+        wp_register_style(
+            'aiols-login',
+            false, // No actual file
+            array() // No dependencies
+        );
+        wp_enqueue_style('aiols-login');
 
-            /* Customize body background color and optionally background image */
-            body.login {
-                background-color: <?php echo esc_attr($background_color); ?> !important;
-                <?php if ($bg_img_id) : ?>background: url(<?php echo esc_url(wp_get_attachment_url($bg_img_id)); ?>) center no-repeat !important;
-                background-size: cover !important;
-                <?php endif; ?>
-            }
+        wp_add_inline_script('jquery', '
+            jQuery(document).ready(function($) {
+                $("#backtoblog").remove();
+                $(".wp-login-logo a").attr("href", "' . home_url() . '");
+            });
+        ');
 
-            /* Style the login form background color and border radius */
-            .login form {
-                background-color: <?php echo esc_attr($form_color); ?> !important;
-                border-radius: <?php echo esc_attr($form_radius); ?>px !important;
-            }
+        // Generate and add dynamic CSS based on settings
+        $this->generate_dynamic_css();
+    }
 
-            /* Remove focus box-shadow from all links */
-            a:focus {
-                box-shadow: none !important;
-            }
+    /**
+     * Generates dynamic CSS based on plugin settings
+     * 
+     * Compiles CSS variables and custom rules from stored options
+     * and adds them as inline styles to the login page
+     * 
+     * @access private
+     * @return void
+     */
+    private function generate_dynamic_css()
+    {
+        // Get all customization options with defaults
+        $options = array(
+            'form_width' => get_option('aiols_form_width', 320),
+            'background_color' => get_option('aiols_background_color', '#ffffff'),
+            'button_color' => get_option('aiols_button_color', '#2271b1'),
+            'form_color' => get_option('aiols_form_color', '#ffffff'),
+            'fields_border_color' => get_option('aiols_fields_border_color', '#2271b1'),
+            'form_radius' => get_option('aiols_form_radius', 0),
+            'links_color' => get_option('aiols_links_color', '#50575e'),
+            'logo_url' => wp_get_attachment_url(get_option('aiols_login_logo', '')),
+            'bg_img_url' => wp_get_attachment_url(get_option('aiols_login_bg_img', ''))
+        );
 
-            /* Customize the login logo background image and sizing if a logo is set */
-            <?php if ($logo_id) : ?>.login h1 a {
-                background-image: url(<?php echo esc_url(wp_get_attachment_url($logo_id)); ?>) !important;
+        // Base CSS variables for all customizations
+        $css = ":root {
+            --aiols-form-width: {$options['form_width']}px;
+            --aiols-bg-color: {$options['background_color']};
+            --aiols-button-color: {$options['button_color']};
+            --aiols-form-color: {$options['form_color']};
+            --aiols-border-color: {$options['fields_border_color']};
+            --aiols-form-radius: {$options['form_radius']}px;
+            --aiols-links-color: {$options['links_color']};
+        }";
+
+        // Add custom logo CSS if logo URL exists
+        if ($options['logo_url']) {
+            $css .= ".login h1 a {
+                background-image: url('{$options['logo_url']}') !important;
                 background-size: contain !important;
                 width: 100% !important;
                 height: 100px !important;
+            }";
+        }
+
+        // Add background image CSS if BG image URL exists
+        if ($options['bg_img_url']) {
+            $css .= "body.login {
+                background: {$options['background_color']} url('{$options['bg_img_url']}') center/cover no-repeat !important;
+            }";
+        }
+
+        if (!$options['bg_img_url']) {
+            $css .= "body.login {
+                background-color: {$options['background_color']} !important;
+            }";
+        }
+
+        // Add custom form styling
+        $css .= "
+            #login {
+                width: {$options['form_width']}px !important;
             }
 
-            <?php endif; ?>
-
-            /* Background image is repeated here to ensure it applies properly */
-            <?php if ($bg_img) : ?>body.login {
-                background: url(<?php echo esc_url($bg_img); ?>) center no-repeat !important;
-                background-size: cover !important;
+            .login form {
+                background-color: {$options['form_color']} !important;
+                border-radius: {$options['form_radius']}px !important;
             }
 
-            <?php endif; ?>
-
-            /* Style the login button colors */
             #wp-submit {
-                background-color: <?php echo esc_attr($button_color); ?> !important;
-                border-color: <?php echo esc_attr($button_color); ?> !important;
+                background-color: {$options['button_color']} !important;
+                border-color: {$options['button_color']} !important;
             }
 
-            /* Style other buttons with the same color */
             .wp-core-ui .button:not(#wp-submit) {
-                color: <?php echo esc_attr($button_color); ?> !important;
+                color: {$options['button_color']} !important;
             }
 
-            /* Style messages and notices border colors */
             .login .message,
             .login .notice,
             .login .success {
-                border-color: <?php echo esc_attr($button_color); ?> !important;
+                border-color: {$options['button_color']} !important;
             }
 
-            /* Style links inside messages and notices */
             .login .message a,
             .login .notice a,
             .login .success a {
-                color: <?php echo esc_attr($button_color); ?> !important;
+                color: {$options['button_color']} !important;
             }
 
-            /* Style focus state of various input fields */
             input[type=checkbox]:focus,
             input[type=color]:focus,
             input[type=date]:focus,
@@ -139,48 +172,37 @@ class All_in_One_Login_Styler
             input[type=week]:focus,
             select:focus,
             textarea:focus {
-                border-color: <?php echo esc_attr($fields_border_color); ?> !important;
-                box-shadow: 0 0 0 1px <?php echo esc_attr($fields_border_color); ?> !important;
+                border-color: {$options['fields_border_color']} !important;
+                box-shadow: 0 0 0 1px {$options['fields_border_color']} !important;
             }
 
-            /* Center the navigation links below the login form */
+            #nav a {
+                color: {$options['links_color']} !important;
+            }
+
             #nav {
                 text-align: center;
             }
 
-            /* Style navigation links */
             #nav a {
-                color: <?php echo esc_attr($links_color); ?> !important;
                 text-decoration: underline !important;
             }
 
-            /* Style checked checkboxes (grayscale effect) */
-            input[type=checkbox]:checked::before {
+            input[type='checkbox']:checked::before {
                 filter: saturate(0%);
             }
 
-            /* Hide the "Back to blog" link */
             #backtoblog a {
                 visibility: hidden;
             }
-        </style>
 
-        <script>
-            // DOMContentLoaded ensures the script runs after the page is fully loaded
-            document.addEventListener("DOMContentLoaded", function() {
-                // Remove the #backtoblog element completely from DOM
-                const backToBlog = document.querySelector("#backtoblog");
-                if (backToBlog) {
-                    backToBlog.remove();
-                }
+            a:focus {
+                box-shadow: none !important;
+            }
 
-                // Change the login logo link URL to the site's home URL
-                const loginLogoLink = document.querySelector(".wp-login-logo a");
-                if (loginLogoLink) {
-                    loginLogoLink.href = "<?php echo esc_attr(home_url()); ?>";
-                }
-            });
-        </script>
-<?php
+        ";
+
+        // Add the compiled CSS as inline style
+        wp_add_inline_style('aiols-login', $css);
     }
 }
