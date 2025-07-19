@@ -49,16 +49,20 @@ class All_in_One_Login_Styler
         wp_register_style(
             'aiols-login',
             false, // No actual file
-            array() // No dependencies
+            array(), // No dependencies
+            '1.0'
         );
         wp_enqueue_style('aiols-login');
 
-        wp_add_inline_script('jquery', '
-            jQuery(document).ready(function($) {
+        // Add inline script (properly escaped)
+        $inline_script = sprintf(
+            'jQuery(document).ready(function($) {
                 $("#backtoblog").remove();
-                $(".wp-login-logo a").attr("href", "' . home_url() . '");
-            });
-        ');
+                $(".wp-login-logo a").attr("href", "%s");
+            });',
+            esc_url(home_url())
+        );
+        wp_add_inline_script('jquery', $inline_script);
 
         // Generate and add dynamic CSS based on settings
         $this->generate_dynamic_css();
@@ -77,15 +81,15 @@ class All_in_One_Login_Styler
     {
         // Get all customization options with defaults
         $options = array(
-            'form_width' => get_option('aiols_form_width', 320),
-            'background_color' => get_option('aiols_background_color', '#ffffff'),
-            'button_color' => get_option('aiols_button_color', '#2271b1'),
-            'form_color' => get_option('aiols_form_color', '#ffffff'),
-            'fields_border_color' => get_option('aiols_fields_border_color', '#2271b1'),
-            'form_radius' => get_option('aiols_form_radius', 0),
-            'links_color' => get_option('aiols_links_color', '#50575e'),
-            'logo_url' => wp_get_attachment_url(get_option('aiols_login_logo', '')),
-            'bg_img_url' => wp_get_attachment_url(get_option('aiols_login_bg_img', ''))
+            'form_width' => absint(get_option('aiols_form_width', 320)),
+            'background_color' => sanitize_hex_color(get_option('aiols_background_color', '#ffffff')),
+            'button_color' => sanitize_hex_color(get_option('aiols_button_color', '#2271b1')),
+            'form_color' => sanitize_hex_color(get_option('aiols_form_color', '#ffffff')),
+            'fields_border_color' => sanitize_hex_color(get_option('aiols_fields_border_color', '#2271b1')),
+            'form_radius' => absint(get_option('aiols_form_radius', 0)),
+            'links_color' => sanitize_hex_color(get_option('aiols_links_color', '#50575e')),
+            'logo_url' => esc_url(wp_get_attachment_url(get_option('aiols_login_logo', ''))),
+            'bg_img_url' => esc_url(wp_get_attachment_url(get_option('aiols_login_bg_img', '')))
         );
 
         // Base CSS variables for all customizations
@@ -203,6 +207,6 @@ class All_in_One_Login_Styler
         ";
 
         // Add the compiled CSS as inline style
-        wp_add_inline_style('aiols-login', $css);
+        wp_add_inline_style('aiols-login', wp_strip_all_tags($css));
     }
 }
